@@ -40,3 +40,18 @@
 .read-the-docs {
     color: #888;
 }
+
+.input-container {
+    display: flex;
+    margin-top: 1em;
+}
+
+.combinations-container {
+    display: flex;
+    justify-content: end;
+}
+
+.combinations-table-container  {
+    text-align: center;
+    justify-content: center;
+}
