@@ -3,7 +3,7 @@ export function FileFormat(
 ): React.ReactElement {
     if (props.lang == 'en')
         return (
-            <div style={{ fontSize: 'smaller' }}>
+            <div className="font-size-small">
                 Use a CSV file, separated by commas, with the columns:
                 <ol>
                     <li>
@@ -25,7 +25,7 @@ export function FileFormat(
             </div>
         )
     return (
-        <div style={{ fontSize: 'smaller' }}>
+        <div className="font-size-small">
             Archivo CSV, separado por comas, con las siguientes columnas:
             <ol>
                 <li>

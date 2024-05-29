@@ -55,3 +55,7 @@
     text-align: center;
     justify-content: center;
 }
+
+.font-size-small {
+    font-size: small;
+}

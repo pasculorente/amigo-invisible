@@ -106,7 +106,7 @@ function App() {
                                 onChange={load}
                             />
                             <Button
-                                style={{ marginLeft: '1rem' }}
+                                style={{ marginLeft: '1rem', marginBottom: "0" }}
                                 variant="outline-info"
                                 size="sm"
                                 onClick={handleShow}
