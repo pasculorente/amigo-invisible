@@ -1,12 +1,22 @@
 import { difference, union } from './collection_utils'
 import { Person } from './types'
 
+
 function any_match(
     value: string,
     people: Person[],
     indexes: number[],
     end: number
 ): boolean {
+    /** 
+     * Check if any of the previously selected options matches the value.
+     * Since options are selected in order, end indicates the last valid selection.
+     * 
+     * @param value - current value to check against selections
+     * @param people - list of participants
+     * @param indexes - each value indicates the option selected by the person in the same index
+     * @param end - last valid selection
+     */
     if (end == 0) return false
     for (let k = 0; k < end; k++) {
         if (people[k].options[indexes[k]] == value) {
