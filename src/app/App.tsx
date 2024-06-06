@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Offcanvas, Tab, Tabs } from 'react-bootstrap'
+import readXlsxFile, { Row } from 'read-excel-file'
 
 import './App.css'
 import { difference, unions } from './collection_utils'
@@ -15,8 +16,7 @@ import {
 } from './table_utils'
 import { Person } from './types'
 
-function load_data(content: string): { people: Person[]; years: string[] } {
-    const data = to_table(content)
+function load_data(data: string[][]): { people: Person[]; years: string[] } {
     const keys = data.slice(1).map((row) => row[0])
     const years = data[0].slice(3)
     const [BG_COLORS, COLORS] = generateColorWheel(data.length - 1, 0.85)
@@ -41,6 +41,18 @@ function load_data(content: string): { people: Person[]; years: string[] } {
             }
         })
     return { people: ps, years: years }
+}
+
+function read_rows(rows: Row[]): string[][] {
+    return rows.map(row => row.map(cell => cell.toString()))
+}
+
+function load_csv(content: string):{ people: Person[]; years: string[] } {
+    return load_data(to_table(content))
+
+}
+function load_xlsx(rows: Row[]): { people: Person[]; years: string[] } {
+    return load_data(read_rows(rows))
 }
 
 function App() {
@@ -72,16 +84,25 @@ function App() {
     function load(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files == null) return
         const file = event.target.files[0]
-        if (file) {
+        if (file.name.endsWith(".csv")) {
             const reader = new FileReader()
             reader.onload = () => {
-                const content = load_data(reader.result! as string)
+                const content = load_csv(reader.result! as string)
                 setData(content)
                 total_combinations(content.people).then((comb) =>
                     setTotalCombinations(comb)
                 )
             }
             reader.readAsText(file)
+        } else if (file.name.endsWith(".xlsx")) {
+            readXlsxFile(file).then((rows) => {
+                const content = load_xlsx(rows)
+                setData(content)
+                total_combinations(content.people).then((comb) =>
+                    setTotalCombinations(comb)
+                )
+            })
+
         }
     }
     return (

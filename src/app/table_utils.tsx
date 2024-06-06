@@ -8,7 +8,8 @@ export function to_table(text: string): string[][] {
     )
 }
 
-export function split_filter(text: string, separator: string): string[] {
+export function split_filter(text: string | null, separator: string): string[] {
+    if (text === null) return[]
     return text.split(separator).filter((value) => value)
 }
 
