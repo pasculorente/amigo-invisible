@@ -44,7 +44,7 @@ function load_data(data: string[][]): { people: Person[]; years: string[] } {
 }
 
 function read_rows(rows: Row[]): string[][] {
-    return rows.map(row => row.map(cell => cell.toString()))
+    return rows.map(row => row.map(cell => cell === null ? "" : cell.toString()))
 }
 
 function load_csv(content: string):{ people: Person[]; years: string[] } {
